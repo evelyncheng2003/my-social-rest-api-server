@@ -1,0 +1,8 @@
+server.servlet.context-path=/
+server.port=8080
+server.address=0.0.0.0
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/mySocial
+spring.datasource.username=postgres
+spring.datasource.password=taiwan2003
+spring.datasource.driver-class-name=org.postgresql.Driver
