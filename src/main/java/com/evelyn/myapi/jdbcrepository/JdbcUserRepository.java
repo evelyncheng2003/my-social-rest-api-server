@@ -169,6 +169,16 @@ public class JdbcUserRepository implements UserRepository {
         );
     }
 
+    @Override
+    public int deletePost(Integer id) {
+        System.out.println("deletePost called");
+        System.out.println("######### post_id is: " + id);
+        return jdbcTemplate.update(
+                "DELETE from social.post_t where post_id = ?",
+                id
+        );
+    }
+
 
     @Override
     public Post findPostById(Long postId) {

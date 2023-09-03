@@ -4,14 +4,18 @@ import com.evelyn.myapi.jdbcrepository.JdbcUserRepository;
 import com.evelyn.myapi.model.Comment;
 import com.evelyn.myapi.model.Post;
 import com.evelyn.myapi.model.User;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class PostController {
@@ -20,6 +24,8 @@ public class PostController {
     JdbcUserRepository jdbcUserRepository;
 
     // comment
+    @Transactional
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/api/post/create", method=RequestMethod.POST)
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
@@ -38,6 +44,21 @@ public class PostController {
         return new ResponseEntity<Post>(post, HttpStatus.OK);
     }
 
+    @Transactional
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value ="/api/post/delete", method=RequestMethod.POST)
+    public ResponseEntity<Map> deletePost(@RequestBody Map<String, Integer> payload) {
+        System.out.println("deletePost called");
+        System.out.println("postID: " + payload.get("deleteId"));
+        jdbcUserRepository.deletePost(payload.get("deleteId"));
+
+        Map response = new HashMap<>();
+        response.put("message", "input received");
+        return new ResponseEntity<Map>(response, HttpStatus.OK);
+    }
+
+
+    @Transactional
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/api/post/likes", method=RequestMethod.POST)
     public ResponseEntity<Post> updateLikes(@RequestBody Post post) {

@@ -24,6 +24,7 @@ import java.util.List;
 
     int updateUser(User user);
 
+    int deletePost(Integer id);
 
     Post findPostById(Long id);
 

@@ -4,6 +4,7 @@ import com.evelyn.myapi.jdbcrepository.JdbcUserRepository;
 import com.evelyn.myapi.model.Comment;
 import com.evelyn.myapi.model.Post;
 import com.evelyn.myapi.model.User;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
@@ -19,6 +20,7 @@ public class CommentController {
     @Autowired
     JdbcUserRepository jdbcUserRepository;
     // comment
+    @Transactional
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/api/comment/create", method=RequestMethod.POST)
     public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
