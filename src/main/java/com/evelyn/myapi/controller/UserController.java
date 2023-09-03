@@ -84,7 +84,7 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-
+    @Transactional
     @RequestMapping(value = "/api/users/update/{id}", method=RequestMethod.POST)
     public int updateUser(@PathVariable(value = "id") Long id , @RequestBody User user) {
         System.out.println("User controller update method");
